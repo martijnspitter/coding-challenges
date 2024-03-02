@@ -1,18 +1,16 @@
 package main
 
 import (
+	handleinput "cc/ccwc/handle-input"
 	readfile "cc/ccwc/read-file"
 	readinput "cc/ccwc/read-input"
-	"fmt"
 )
 
 func main() {
-	path := readinput.ReadInput()
+	countPath, linePath := readinput.ReadInput()
 
-	content := readfile.ReadFile(path)
+	content := readfile.ReadFile(countPath, linePath)
 
-	contentLength := len(content)
-
-	fmt.Printf("%v %v", contentLength, *path)
+	handleinput.HandleInput(content, countPath, linePath)
 
 }

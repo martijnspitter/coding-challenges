@@ -6,8 +6,18 @@ import (
 	"os"
 )
 
-func ReadFile(path *string) []byte {
-	content, err := os.ReadFile(*path)
+func ReadFile(countPath *string, linePath *string) []byte {
+	path := ""
+
+	if *countPath != "" {
+		path = *countPath
+	}
+
+	if *linePath != "" {
+		path = *linePath
+	}
+
+	content, err := os.ReadFile(path)
 
 	if err != nil {
 		fmt.Println("Something went wrong reading the file")

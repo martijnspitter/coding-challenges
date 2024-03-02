@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ReadFile(countPath *string, linePath *string) []byte {
+func ReadFile(countPath *string, linePath *string, wordPath *string) []byte {
 	path := ""
 
 	if *countPath != "" {
@@ -15,6 +15,10 @@ func ReadFile(countPath *string, linePath *string) []byte {
 
 	if *linePath != "" {
 		path = *linePath
+	}
+
+	if *wordPath != "" {
+		path = *wordPath
 	}
 
 	content, err := os.ReadFile(path)

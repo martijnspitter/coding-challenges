@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	countPath, linePath := readinput.ReadInput()
+	countPath, linePath, wordPath := readinput.ReadInput()
 
-	content := readfile.ReadFile(countPath, linePath)
+	content := readfile.ReadFile(countPath, linePath, wordPath)
 
-	handleinput.HandleInput(content, countPath, linePath)
+	handleinput.HandleInput(content, countPath, linePath, wordPath)
 
 }

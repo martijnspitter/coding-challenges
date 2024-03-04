@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	countPath, linePath, wordPath := readinput.ReadInput()
+	command, path := readinput.ReadInput()
 
-	content := readfile.ReadFile(countPath, linePath, wordPath)
+	content := readfile.GetContent(path)
 
-	handleinput.HandleInput(content, countPath, linePath, wordPath)
+	handleinput.HandleInput(content, command, path)
 
 }

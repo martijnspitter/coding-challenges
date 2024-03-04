@@ -1,32 +1,43 @@
 package readfile
 
 import (
-	"flag"
+	"bufio"
 	"fmt"
 	"os"
 )
 
-func ReadFile(countPath *string, linePath *string, wordPath *string) []byte {
-	path := ""
-
-	if *countPath != "" {
-		path = *countPath
+func GetContent(path string) []byte {
+	if path != "" {
+		return readFileFromPath(path)
 	}
 
-	if *linePath != "" {
-		path = *linePath
-	}
+	return readContentFromStdIn()
+}
 
-	if *wordPath != "" {
-		path = *wordPath
-	}
-
+func readFileFromPath(path string) []byte {
 	content, err := os.ReadFile(path)
 
 	if err != nil {
 		fmt.Println("Something went wrong reading the file")
-		flag.Usage()
+		return make([]byte, 0)
 	}
 
+	return content
+}
+
+func readContentFromStdIn() []byte {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	var content []byte
+
+	scanner.Split(bufio.ScanBytes)
+
+	for scanner.Scan() {
+
+		content = append(content, scanner.Bytes()...)
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "Error reading input from console")
+	}
 	return content
 }

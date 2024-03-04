@@ -1,21 +1,45 @@
 package readinput
 
 import (
-	"flag"
-	"fmt"
+	"log"
+	"os"
+	"strings"
 )
 
-func ReadInput() (*string, *string, *string) {
-	countPath := flag.String("c", "", "File to parse")
-	linePath := flag.String("l", "", "File to parse")
-	wordPath := flag.String("w", "", "File to parse")
+func ReadInput() (string, string) {
+	args := os.Args
 
-	flag.Parse()
+	var command, path string
 
-	if *countPath == "" && *linePath == "" && *wordPath == "" {
-		fmt.Println("Please provide a file path.")
-		flag.Usage()
+	switch len(args) {
+	case 1:
+		log.Fatal("positional arg1 is required")
+	case 2:
+		command = getCommand(args[1])
+		path = ""
+	case 3:
+		command = getCommand(args[1])
+		path = getPath(args[2])
+	default:
+		command = "none"
+		path = ""
 	}
 
-	return countPath, linePath, wordPath
+	return command, path
+}
+
+func getCommand(arg string) string {
+	if strings.Contains(arg, "-") {
+		return arg
+	}
+
+	return "none"
+}
+
+func getPath(arg string) string {
+	if len(arg) > 0 {
+		return arg
+	}
+
+	return ""
 }

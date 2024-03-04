@@ -1,16 +1,24 @@
 package handleinput
 
-func HandleInput(content []byte, countPath *string, linePath *string, wordPath *string) {
-	if *countPath != "" {
-		reportByteCount(content, countPath)
+func HandleInput(content []byte, command string, path string) {
+	if command == "-c" {
+		reportByteCount(content, path)
 	}
 
-	if *linePath != "" {
-		reportLineCount(content, linePath)
+	if command == "-l" {
+		reportLineCount(content, path)
 	}
 
-	if *wordPath != "" {
-		reportWordCount(content, wordPath)
+	if command == "-w" {
+		reportWordCount(content, path)
+	}
+
+	if command == "-m" {
+		reportCharCount(content, path)
+	}
+
+	if command == "none" {
+		reportNoOptionsCount(content, path)
 	}
 
 }
